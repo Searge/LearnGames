@@ -2,7 +2,19 @@ from tkinter import *
 import random
 import time
 
-# TODO Створити полотно
+
+class Ball:
+    def __init__(self, canvas, color):
+        self.canvas = canvas
+        self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
+        self.canvas.move(self.id, 245, 100)
+
+    def draw(self):
+        """ id — ідентифікатор овалу
+            0 — не рухатися горизонтально
+            -1 — посунутися на 1px вгору
+        """
+        self.canvas.move(self.id, 0, -1)
 
 tk = Tk()
 tk.title("Гра")
@@ -16,23 +28,13 @@ canvas = Canvas(tk, width=500, height=400,
 canvas.pack()
 tk.update()
 
-
-# TODO Створити Клас Мяча
-
-
-class Ball:
-    def __init__(self, canvas, color):
-        self.canvas = canvas
-        self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
-        self.canvas.move(self.id, 245, 100)
-
-    def draw(self):
-        self.canvas.move(self.id, 0, -1)
-
-
 ball = Ball(canvas, 'red')
 
 while 1:
-    tk.update_idletasks()
-    tk.update()
+    ball.draw()
+    tk.update_idletasks()  # Перемальовують
+    tk.update()            # полотно
     time.sleep(0.01)
+
+# TODO 3. Примусити м'яч стрибати
+# TODO 4. Зміна початкового напряму руху мяча
