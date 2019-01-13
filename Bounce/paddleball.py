@@ -8,10 +8,17 @@ class Ball:
         self.canvas = canvas
         self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
         self.canvas.move(self.id, 245, 100)
-        self.x = 0  # 0 — не рухатися горизонтально
-        self.y = -1  # -1 — посунутися на 1px вгору
+        """ Змінюємо початковий напрямок руху (кут)
+            створивши список і перемішуючи його.
+        """
+        starts = [-3, -2, -1, 1, 2, 3]
+        random.shuffle(starts)
+        self.x = starts[0]  # будь-яке число від -3 до 3
+        self.y = -3  # -3 — прискорюємо рух м'яча
         self.canvas_height = self.canvas.winfo_height()
         # функція повертає поточну висоту полотна ↑
+        self.canvas_width = self.canvas.winfo_width()
+        #                      ... ширина полотна
 
     def draw(self):
         """ id — ідентифікатор овалу
@@ -22,9 +29,13 @@ class Ball:
         self.canvas.move(self.id, self.x, self.y)
         pos = self.canvas.coords(self.id)
         if pos[1] <= 0:  # y1 (верхня точка м'яча) <= 0
-            self.y = 1
+            self.y = 3   # + повертаємо униз
         if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
-            self.y = -1
+            self.y = -3  # - повертаємо вверх
+        if pos[0] <= 0:
+            self.x = 3
+        if pos[2] >= self.canvas_width:
+            self.x = -3
 
 
 tk = Tk()
@@ -47,6 +58,3 @@ while 1:
     tk.update_idletasks()  # Перемальовують
     tk.update()  # полотно
     time.sleep(0.01)
-
-# TODO 3. Примусити м'яч стрибати
-# TODO 4. Зміна початкового напряму руху мяча
