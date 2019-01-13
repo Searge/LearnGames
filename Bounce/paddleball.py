@@ -10,7 +10,7 @@ tk.resizable(0, 0)  # вимикаємо можливість змінювати
 tk.wm_attributes("-topmost", 1)
 #  атрибути менеджжера вікон — найвище.
 
-canvas = Canvas(tk, width=500, height=400, \
+canvas = Canvas(tk, width=500, height=400,
                 bd=0, highlightthickness=0)
 #               вимикаємо контур вікн
 canvas.pack()
@@ -27,7 +27,7 @@ class Ball:
         self.canvas.move(self.id, 245, 100)
 
     def draw(self):
-        pass
+        self.canvas.move(self.id, 0, -1)
 
 
 ball = Ball(canvas, 'red')
