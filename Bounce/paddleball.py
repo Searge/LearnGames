@@ -33,9 +33,9 @@ class Ball:
         if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
             self.y = -3  # - повертаємо вверх
         if pos[0] <= 0:
-            self.x = 3
+            self.x = 3   # -->
         if pos[2] >= self.canvas_width:
-            self.x = -3
+            self.x = -3  # <--
 
 
 class Paddle:
@@ -43,9 +43,32 @@ class Paddle:
         self.canvas = canvas
         self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
         self.canvas.move(self.id, 200, 300)
+        """ Додаємо рух до ракетки
+            x = -2 для руху ліворуч і 2 — праворуч
+        """
+        self.x = 0
+        self.canvas_width = self.canvas.winfo_width()
+        # Пов'язуємо (біндимо) функції з відповідними клавішами
+        self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
+        self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
 
     def draw(self):
-        pass
+        self.canvas.move(self.id, self.x, 0)
+        pos = self.canvas.coords(self.id)
+        """ Зупиняється, коли дістається країв вікна
+        """
+        if pos[0] <= 0:
+            self.x = 0
+        if pos[2] >= self.canvas_width:
+            self.x = 0
+
+    def turn_left(self, evt):
+        # -2 для руху ліворуч
+        self.x = -2
+
+    def turn_right(self, evt):
+        # 2 — праворуч
+        self.x = 2
 
 
 tk = Tk()
@@ -71,7 +94,6 @@ while 1:
     tk.update()  # полотно
     time.sleep(0.01)
 
-# TODO 6. Урохомити ракетку
 # TODO 7. Визначення моменту, коли м'яч вдаряється в ракетку
 # TODO 8. Додавання елементу випадковості
 
