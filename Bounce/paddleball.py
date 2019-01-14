@@ -29,13 +29,23 @@ class Ball:
         self.canvas.move(self.id, self.x, self.y)
         pos = self.canvas.coords(self.id)
         if pos[1] <= 0:  # y1 (верхня точка м'яча) <= 0
-            self.y = 3   # + повертаємо униз
+            self.y = 3  # + повертаємо униз
         if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
             self.y = -3  # - повертаємо вверх
         if pos[0] <= 0:
             self.x = 3
         if pos[2] >= self.canvas_width:
             self.x = -3
+
+
+class Paddle:
+    def __init__(self, canvas, color):
+        self.canvas = canvas
+        self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
+        self.canvas.move(self.id, 200, 300)
+
+    def draw(self):
+        pass
 
 
 tk = Tk()
@@ -52,14 +62,15 @@ canvas.pack()
 tk.update()
 
 ball = Ball(canvas, 'red')
+paddle = Paddle(canvas, 'blue')
 
 while 1:
     ball.draw()
+    paddle.draw()
     tk.update_idletasks()  # Перемальовують
     tk.update()  # полотно
     time.sleep(0.01)
 
-# TODO 5. Додати ракетку
 # TODO 6. Урохомити ракетку
 # TODO 7. Визначення моменту, коли м'яч вдаряється в ракетку
 # TODO 8. Додавання елементу випадковості
@@ -70,4 +81,3 @@ while 1:
 # TODO 9.3 Зробити м'яч швидшим
 #     Передавати прискорення від ракетки
 # TODO 9.4 Записати рахунок гравця
-
