@@ -47,7 +47,7 @@ class Ball:
         # if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
         #     self.y = -3  # - повертаємо вверх
         # Перевіряємо, чи вдарився м'яч об ракетку
-        if self.hit_paddle(pos) == True:
+        if self.hit_paddle(pos):
             self.y = -3
         # Перевіряємо, чи вдарився об дно екрану
         if pos[3] >= self.canvas_height:
@@ -103,8 +103,14 @@ paddle = Paddle(canvas, 'blue')
 # paddle перед м'ячем, щоб передати цей елемент ф-ції класу
 ball = Ball(canvas, paddle, 'red')
 
+for _ in range(1):
+    canvas.create_text(250, 200, text="START!", font=('Helvetica Bold', 21))
+    time.sleep(2)
+    tk.update_idletasks()
+    tk.update()
+
 while 1:
-    if ball.hit_bottom == False:
+    if ball.hit_bottom is False:
         ball.draw()
         paddle.draw()
     tk.update_idletasks()  # Перемальовують
