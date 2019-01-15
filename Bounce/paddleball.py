@@ -44,14 +44,14 @@ class Ball:
         pos = self.canvas.coords(self.id)
         if pos[1] <= 0:  # y1 (верхня точка м'яча) <= 0
             self.y = 3  # + повертаємо униз
-        if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
-            self.y = -3  # - повертаємо вверх
-        # Перевіряємо, чи вдарився об дно екрану
-        if pos[3] >= self.canvas_height:
-            self.hit_bottom = True
+        # if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
+        #     self.y = -3  # - повертаємо вверх
         # Перевіряємо, чи вдарився м'яч об ракетку
         if self.hit_paddle(pos) == True:
             self.y = -3
+        # Перевіряємо, чи вдарився об дно екрану
+        if pos[3] >= self.canvas_height:
+            self.hit_bottom = True
         # якщо так — жбурляємо його угору
         if pos[0] <= 0:
             self.x = 3  # -->
@@ -80,6 +80,14 @@ class Paddle:
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
 
+    def turn_left(self, evt):
+        # -2 для руху ліворуч
+        self.x = -2
+
+    def turn_right(self, evt):
+        # 2 — праворуч
+        self.x = 2
+
     def draw(self):
         self.canvas.move(self.id, self.x, 0)
         pos = self.canvas.coords(self.id)
@@ -89,14 +97,6 @@ class Paddle:
             self.x = 0
         if pos[2] >= self.canvas_width:
             self.x = 0
-
-    def turn_left(self, evt):
-        # -2 для руху ліворуч
-        self.x = -2
-
-    def turn_right(self, evt):
-        # 2 — праворуч
-        self.x = 2
 
 
 paddle = Paddle(canvas, 'blue')
