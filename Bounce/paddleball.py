@@ -2,6 +2,18 @@ from tkinter import *
 import random
 import time
 
+tk = Tk()
+tk.title("Гра")
+tk.resizable(0, 0)
+# вимикаємо можливість змінювати розмір вікна
+tk.wm_attributes("-topmost", 1)
+#  атрибути менеджжера вікон — найвище.
+canvas = Canvas(tk, width=500, height=400,
+                bd=0, highlightthickness=0)
+#               вимикаємо контур вікн
+canvas.pack()
+tk.update()
+
 
 class Ball:
     def __init__(self, canvas, paddle, color):
@@ -20,13 +32,7 @@ class Ball:
         # функція повертає поточну висоту полотна ↑
         self.canvas_width = self.canvas.winfo_width()
         #                      ... ширина полотна
-
-    def hit_paddle(self, pos):
-        paddle_pos = self.canvas.coords(self.paddle.id)
-        if paddle_pos[2] <= pos[2] >= paddle_pos[0]:
-            if paddle_pos[3] <= pos[3] >= paddle_pos[1]:
-                return True
-        return False
+        self.hit_bottom = False
 
     def draw(self):
         """ id — ідентифікатор овалу
@@ -40,14 +46,24 @@ class Ball:
             self.y = 3  # + повертаємо униз
         if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
             self.y = -3  # - повертаємо вверх
+        # Перевіряємо, чи вдарився об дно екрану
+        if pos[3] >= self.canvas_height:
+            self.hit_bottom = True
         # Перевіряємо, чи вдарився м'яч об ракетку
-        if self.hit_paddle(pos) is True:
+        if self.hit_paddle(pos) == True:
             self.y = -3
         # якщо так — жбурляємо його угору
         if pos[0] <= 0:
             self.x = 3  # -->
         if pos[2] >= self.canvas_width:
             self.x = -3  # <--
+
+    def hit_paddle(self, pos):
+        paddle_pos = self.canvas.coords(self.paddle.id)
+        if paddle_pos[2] <= pos[2] >= paddle_pos[0]:
+            if paddle_pos[3] <= pos[3] >= paddle_pos[1]:
+                return True
+        return False
 
 
 class Paddle:
@@ -83,31 +99,17 @@ class Paddle:
         self.x = 2
 
 
-tk = Tk()
-tk.title("Гра")
-tk.resizable(0, 0)
-# вимикаємо можливість змінювати розмір вікна
-tk.wm_attributes("-topmost", 1)
-#  атрибути менеджжера вікон — найвище.
-
-canvas = Canvas(tk, width=500, height=400,
-                bd=0, highlightthickness=0)
-#               вимикаємо контур вікн
-canvas.pack()
-tk.update()
-
-ball = Ball(canvas, paddle, 'red')
 paddle = Paddle(canvas, 'blue')
+# paddle перед м'ячем, щоб передати цей елемент ф-ції класу
+ball = Ball(canvas, paddle, 'red')
 
 while 1:
-    ball.draw()
-    paddle.draw()
+    if ball.hit_bottom == False:
+        ball.draw()
+        paddle.draw()
     tk.update_idletasks()  # Перемальовують
     tk.update()  # полотно
     time.sleep(0.01)
-
-# TODO 7. Визначення моменту, коли м'яч вдаряється в ракетку
-# TODO 8. Додавання елементу випадковості
 
 # TODO 9.1 Відтермінувати початок гри
 #     Додати прив'язку до події клацання мишкою
