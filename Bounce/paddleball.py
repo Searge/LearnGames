@@ -1,18 +1,29 @@
-from tkinter import *
+import tkinter as tk
 import random
 import time
 
-tk = Tk()
-tk.title("Гра")
-tk.resizable(0, 0)
+size = 600
+
+half_size = size / 2                # 300
+one_fourth = size / 4               # 200
+three_fourth = size - one_fourth    # 400
+one_sixtieth = size / 60            # 10
+one_tenth = size / 10               # 60
+
+colors = ('#068587', '#46B29D', '#4FB99F',
+          '#F0CA4D', '#E37B40', '#DE5B49')
+
+root = tk.Tk()
+root.title("Гра")
+root.resizable(0, 0)
 # вимикаємо можливість змінювати розмір вікна
-tk.wm_attributes("-topmost", 1)
+root.wm_attributes("-topmost", 1)
 #  атрибути менеджжера вікон — найвище.
-canvas = Canvas(tk, width=500, height=400,
-                bd=0, highlightthickness=0)
+canvas = tk.Canvas(root, width=500, height=400,
+                   bd=0, highlightthickness=0)
 #               вимикаємо контур вікн
 canvas.pack()
-tk.update()
+root.update()
 
 
 class Ball:
@@ -44,7 +55,8 @@ class Ball:
         pos = self.canvas.coords(self.id)
         if pos[1] <= 0:  # y1 (верхня точка м'яча) <= 0
             self.y = 3  # + повертаємо униз
-        # if pos[3] >= self.canvas_height:  # y2 (нижня точка) >= поточній висоті полотна
+        # if pos[3] >= self.canvas_height:  # y2 (нижня точка)
+        #                                       >= поточній висоті полотна
         #     self.y = -3  # - повертаємо вверх
         # Перевіряємо, чи вдарився м'яч об ракетку
         if self.hit_paddle(pos):
@@ -103,18 +115,25 @@ paddle = Paddle(canvas, 'blue')
 # paddle перед м'ячем, щоб передати цей елемент ф-ції класу
 ball = Ball(canvas, paddle, 'red')
 
-for _ in range(1):
-    canvas.create_text(250, 200, text="START!", font=('Helvetica Bold', 21))
-    time.sleep(2)
-    tk.update_idletasks()
-    tk.update()
+
+def hello():
+    i = 0
+    while i <= 2:
+        canvas.create_text(250, 200, text="START!",
+                           font=('Helvetica Bold', 21))
+        root.update_idletasks()
+        root.update()
+        i += 1
+
+
+hello()
 
 while 1:
     if ball.hit_bottom is False:
         ball.draw()
         paddle.draw()
-    tk.update_idletasks()  # Перемальовують
-    tk.update()  # полотно
+    root.update_idletasks()  # Перемальовують
+    root.update()  # полотно
     time.sleep(0.01)
 
 # TODO 9.1 Відтермінувати початок гри
