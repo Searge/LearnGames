@@ -6,9 +6,7 @@ Ubik
 
 CHAPTER 1.
 
-
-Friends, this is clean-up time and we're discounting all our silent, electric Ubiks by this much money. Yes, we're throwing away the blue-book. And remember: every Ubik on our lot has been used only as directed.
-
+> Friends, this is clean-up time and we're discounting all our silent, electric Ubiks by this much money. Yes, we're throwing away the blue-book. And remember: every Ubik on our lot has been used only as directed.
 
 At three-thirty A.M. on the night of June 5, 1992, the top telepath in the Sol System fell off the map in the offices of Runciter Associates in New York City. That started vid-phones ringing. The Runciter organization had lost track of too many of Hollis' psis during the last two months; this added disappearance wouldn't do.
 
@@ -3951,12 +3949,4 @@ This was just the beginning.
 42
 
 
-
-
-
-Спасибо, что скачали книгу в бесплатной электронной библиотеке Royallib.ru: http://royallib.ru
-
-Оставить отзыв о книге: http://royallib.ru/comment/Dick_Philip/Ubik.html
-
-Все книги автора: http://royallib.ru/author/Dick_Philip.html
 
