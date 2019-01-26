@@ -978,7 +978,7 @@ But he knew otherwise.
 
 It was not something he could put his finger on. It certainly was not rational. Potentially, the counter-field capacity of the eleven inertials had to be considered enormous. And yet-
 
-"Mr. Chip, can I have a second of your time?" Mr. Apostos, bald-headed and bearded, his gold lam&#233; trousers glittering, plucked at Joe Chip's arm. "Could I discuss an experience I had late last night? In a hypnagogic state I seem to have contacted one, or possibly two, of Mr. Hollis' people - a telepath evidently operating in conjunction with one of their precogs. Do you think I should tell Mr. Runciter? Is it important?"
+"Mr. Chip, can I have a second of your time?" Mr. Apostos, bald-headed and bearded, his gold lame trousers glittering, plucked at Joe Chip's arm. "Could I discuss an experience I had late last night? In a hypnagogic state I seem to have contacted one, or possibly two, of Mr. Hollis' people - a telepath evidently operating in conjunction with one of their precogs. Do you think I should tell Mr. Runciter? Is it important?"
 
 Hesitating, Joe Chip looked toward Runciter. Seated in his worthy, beloved chair, trying to relight his all-Havana cigar, Runciter appeared terribly tired; the wattles of his face sagged. "No," Joe said. "Let it go."
 
