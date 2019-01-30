@@ -1,6 +1,6 @@
 import tkinter as tk
-import random
 import time
+import random
 
 size = 500
 
@@ -31,10 +31,41 @@ class Game:
         while True:
             if self.running:
                 for sprite in self.sprites:
-                    sprite.move
+                    sprite.move()
             self.root.update_idletasks()
             self.root.update()
             time.sleep(0.01)
+
+
+class Coords():
+    """docstring for Coords"""
+
+    def __init__(self, x1=0, y1=0, x2=0, y2=0):
+        super(Coords, self).__init__()
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+
+
+def within_x(co1, co2):
+    if (co2.x2 > co1.x1 > co2.x1) \
+            or (co2.x2 > co1.x2 > co2.x1) \
+            or (co1.x2 > co2.x1 > co1.x1) \
+            or (co1.x1 > co2.x2 > co1.x1):
+        return True
+    else:
+        return False
+
+
+def within_y(co1, co2):
+    if (co2.y2 > co1.y1 > co2.y1) \
+            or (co2.y2 > co1.y2 > co2.y1) \
+            or (co1.y2 > co2.y1 > co1.y1) \
+            or (co1.y1 > co2.y2 > co1.y1):
+        return True
+    else:
+        return False
 
 
 go = Game()
