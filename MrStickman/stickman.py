@@ -107,11 +107,33 @@ def collided_bottom(y, co1, co2):
 
 class Sprite:
     """docstring for Sprite"""
+
     def __init__(self, game):
         super(Sprite, self).__init__()
         self.game = game
+        self.endgame = False
+        self.coordinates = None
 
+    def move(self):
+        pass
+
+    def coords(self):
+        return self.coordinates
+
+
+class Platform(Sprite):
+    """docstring for Platform"""
+
+    def __init__(self, game, photo_image, x, y, width, height):
+        Sprite.__init__(self, game)
+        self.photo_image = photo_image
+        self.image = game.canvas.create_image(x, y,
+                                              image=self.photo_image,
+                                              anchor='nw')
+        self.coordinates = Coords(x, y, x + width, y + height)
 
 
 go = Game()
+platform1 = Platform(go, tk.PhotoImage(file="sprites/platform1.gif"),
+                     0, 480, 100, 10)
 go.mainloop()
