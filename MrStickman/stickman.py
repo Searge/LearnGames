@@ -1,8 +1,9 @@
 import tkinter as tk
 import time
-import random
+# import random
 
 size = 500
+spr = "sprites/"
 
 
 class Game:
@@ -134,6 +135,25 @@ class Platform(Sprite):
 
 
 go = Game()
-platform1 = Platform(go, tk.PhotoImage(file="sprites/platform1.gif"),
+
+platform1 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
                      0, 480, 100, 10)
+platform2 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
+                     150, 440, 100, 10)
+platform3 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
+                     300, 400, 100, 10)
+platform4 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
+                     300, 160, 100, 10)
+platform5 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+                     175, 350, 66, 10)
+platform6 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+                     50, 300, 66, 10)
+platform7 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+                     170, 120, 66, 10)
+platform8 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+                     45, 60, 66, 10)
+platform9 = Platform(go, tk.PhotoImage(file=spr + "platform3.gif"),
+                     170, 250, 32, 10)
+platform10 = Platform(go, tk.PhotoImage(file=spr + "platform3.gif"),
+                      230, 200, 32, 10)
 go.mainloop()
