@@ -27,12 +27,15 @@ class Game:
         self.sprites = []
         self.running = True
 
-     def mainloop(self):
+    def mainloop(self):
         while True:
-             if self.running == True:
-                 for sprite in self.sprites:
-                     sprite.move
+            if self.running:
+                for sprite in self.sprites:
+                    sprite.move
             self.root.update_idletasks()
             self.root.update()
             time.sleep(0.01)
 
+
+go = Game()
+go.mainloop()
