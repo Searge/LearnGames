@@ -17,3 +17,12 @@ class Game:
         self.root.update()
         self.canvas.width = size
         self.canvas.height = size
+        self.bg = tk.PhotoImage(file="sprites/background.gif")
+        w = self.bg.width()
+        h = self.bg.height()
+        for x in range(5):
+            for y in range(5):
+                self.canvas.create_image(x * w, y * h,
+                                         image=self.bg, anchor='nw')
+        self.sprites = []
+        self.running = True
