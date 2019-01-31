@@ -4,6 +4,7 @@ import time
 
 size: int = 500
 spr = "sprites/"
+plate = ("platform0.gif", "platform1.gif", "platform2.gif")
 
 
 class Game:
@@ -19,12 +20,20 @@ class Game:
         self.canvas.width = size
         self.canvas.height = size
         self.bg = tk.PhotoImage(file="sprites/background.gif")
+        self.bg2 = tk.PhotoImage(file="sprites/background2.gif")
         w = self.bg.width()
         h = self.bg.height()
-        for x in range(5):
-            for y in range(5):
-                self.canvas.create_image(x * w, y * h,
-                                         image=self.bg, anchor='nw')
+        draw = True
+        for columns in range(5):
+            for rows in range(5):
+                if draw:
+                    self.canvas.create_image(columns * w, rows * h,
+                                             image=self.bg, anchor='nw')
+                    draw = False
+                else:
+                    self.canvas.create_image(columns * w, rows * h,
+                                             image=self.bg2, anchor='nw')
+                    draw = True
         self.sprites = []
         self.running = True
 
@@ -136,24 +145,24 @@ class Platform(Sprite):
 
 go = Game()
 
-platform1 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
+platform1 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
                      0, 480, 100, 10)
-platform2 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
+platform2 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
                      150, 440, 100, 10)
-platform3 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
+platform3 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
                      300, 400, 100, 10)
-platform4 = Platform(go, tk.PhotoImage(file=spr + "platform1.gif"),
+platform4 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
                      300, 160, 100, 10)
-platform5 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+platform5 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
                      175, 350, 66, 10)
-platform6 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+platform6 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
                      50, 300, 66, 10)
-platform7 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+platform7 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
                      170, 120, 66, 10)
-platform8 = Platform(go, tk.PhotoImage(file=spr + "platform2.gif"),
+platform8 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
                      45, 60, 66, 10)
-platform9 = Platform(go, tk.PhotoImage(file=spr + "platform3.gif"),
+platform9 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
                      170, 250, 32, 10)
-platform10 = Platform(go, tk.PhotoImage(file=spr + "platform3.gif"),
+platform10 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
                       230, 200, 32, 10)
 go.mainloop()
