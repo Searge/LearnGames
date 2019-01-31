@@ -2,7 +2,7 @@ import tkinter as tk
 import time
 # import random
 
-size = 500
+size: int = 500
 spr = "sprites/"
 
 
