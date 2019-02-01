@@ -205,6 +205,55 @@ class StickMan(Sprite):
                 else:
                     self.game.canvas.itemconfig(self.image, image=self.images_right[self.current_image])
 
+        def coords(self):
+            xy = self.game.canvas.coords(self.image)
+            self.coordinates.x1 = xy[0]
+            self.coordinates.y1 = xy[1]
+            self.coordinates.x2 = xy[0] + 27
+            self.coordinates.y2 = xy[0] + 30
+            return self.coordinates
+
+        def move(self):
+            self.animate()
+            if self.y < 0:
+                self.jump_count += 1
+                if self.jump_count > 20:
+                    self.jump_count -= 1
+            co = self.coords()
+            left = True
+            right = True
+            top = True
+            bottom = True
+            falling = True
+            if self.y > 0 and co.y2 >= self.game.canvas_height:
+                self.y = 0
+                bottom = False
+            elif self.y < 0 and co.y1 <= 0:
+                self.y = 0
+                top = False
+
+            if self.x > 0 and co.x2 >= self.game.canvas_height:
+                self.x = 0
+                right = False
+            elif self.x < 0 and co.x1 <= 0:
+                self.x = 0
+                left = False
+
+            for sprite in self.game.sprites:
+                if sprite == self:
+                    continue
+                sprite_co = sprite.coords()
+                if top and self.y < 0 and collided_top(co, sprite_co):
+                    self.y = -self.y
+                    top = False
+
+            if bottom and self.y > 0 and collided_bottom(self.y, co, sprite_co):
+                self.y = sprite_co.y1 - co.y2
+                if self.y < 0:
+                    self.y = 0
+                bottom = False
+                top = False
+
 
 go = Game()
 
@@ -228,4 +277,6 @@ platform9 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
                      170, 250, 32, 10)
 platform10 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
                       230, 200, 32, 10)
+
+
 go.mainloop()
