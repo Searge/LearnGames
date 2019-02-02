@@ -17,8 +17,8 @@ class Game:
                                 highlightthickness=0)
         self.canvas.pack()
         self.root.update()
-        self.canvas.width = size
-        self.canvas.height = size
+        self.canvas_width = size
+        self.canvas_height = size
         self.bg = tk.PhotoImage(file="sprites/background.gif")
         self.bg2 = tk.PhotoImage(file="sprites/background2.gif")
         w = self.bg.width()
@@ -302,11 +302,19 @@ platform9 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
 platform10 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
                       230, 200, 32, 10)
 
-go.sprites.extend([platform1, platform2, platform3, platform4, platform5,
-                   platform6, platform7, platform8, platform9, platform10])
+go.sprites.append(platform1)
+go.sprites.append(platform2)
+go.sprites.append(platform3)
+go.sprites.append(platform4)
+go.sprites.append(platform5)
+go.sprites.append(platform6)
+go.sprites.append(platform7)
+go.sprites.append(platform8)
+go.sprites.append(platform9)
+go.sprites.append(platform10)
+
 # for i in range(1, 10 + 1):
 #     go.sprites.append('platform' + str(i))
-
 sf = StickMan(go)
 go.sprites.append(sf)
 go.mainloop()
