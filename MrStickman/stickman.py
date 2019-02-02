@@ -216,7 +216,7 @@ class StickMan(Sprite):
         self.coordinates.x1 = xy[0]
         self.coordinates.y1 = xy[1]
         self.coordinates.x2 = xy[0] + 27
-        self.coordinates.y2 = xy[0] + 30
+        self.coordinates.y2 = xy[1] + 30
         return self.coordinates
 
     def move(self):
@@ -224,7 +224,9 @@ class StickMan(Sprite):
         if self.y < 0:
             self.jump_count += 1
             if self.jump_count > 20:
-                self.jump_count -= 1
+                self.y = 4
+        if self.y > 0:
+            self.jump_count -= 1
         co = self.coords()
         left = True
         right = True
@@ -269,14 +271,30 @@ class StickMan(Sprite):
             if left and self.x < 0 and collided_left(co, sprite_co):
                 self.x = 0
                 left = False
+                if sprite.endgame:
+                    self.game.running = False
             if right and self.x > 0 and collided_right(co, sprite_co):
                 self.x = 0
                 left = False
+                if sprite.endgame:
+                    self.game.running = False
         if falling and bottom \
                 and self.y == 0 \
                 and co.y2 < self.game.canvas_height:
             self.y = 4
         self.game.canvas.move(self.image, self.x, self.y)
+
+
+class Door(Sprite):
+    """Doors"""
+    def __init__(self, game, photo_image, x, y, width, height):
+        Sprite.__init__(self, game)
+        self.photo_image = photo_image
+        self.image = game.canvas.create_image(x, y,
+                                              image=self.photo_image,
+                                              anchor='nw')
+        self.coordinates = Coords(x, y, x + (width / 2), y + height)
+        self.endgame = True
 
 
 go = Game()
@@ -315,6 +333,9 @@ go.sprites.append(platform10)
 
 # for i in range(1, 10 + 1):
 #     go.sprites.append('platform' + str(i))
+
+door = Door(go, tk.PhotoImage(file=spr + 'door1.gif'), 45, 30, 40, 35)
+go.sprites.append(door)
 sf = StickMan(go)
 go.sprites.append(sf)
 go.mainloop()
