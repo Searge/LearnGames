@@ -143,6 +143,35 @@ class Platform(Sprite):
         self.coordinates = Coords(x, y, x + width, y + height)
 
 
+class MovingPlatform(Platform):
+    """Moving Platform"""
+
+    def __init__(self, game, photo_image, x, y, width, height):
+        Platform.__init__(self, game, photo_image, x, y, width, height)
+        self.x = 2
+        self.counter = 0
+        self.last_time = time.time()
+        self.width = width
+        self.height = height
+
+    def coords(self):
+        xy = self.game.canvas.coords(self.image)
+        self.coordinates.x1 = xy[0]
+        self.coordinates.y1 = xy[1]
+        self.coordinates.x2 = xy[0] + self.width
+        self.coordinates.y2 = xy[1] + self.height
+        return self.coordinates
+
+    def move(self):
+        if time.time() - self.last_time > 0.03:
+            self.last_time = time.time()
+            self.game.canvas.move(self.image, self.x, 0)
+            self.counter += 1
+            if self.counter > 20:
+                self.x = self.x * -1
+                self.counter = 0
+
+
 class StickMan(Sprite):
     """docstring for StickMan"""
 
@@ -296,6 +325,7 @@ class StickMan(Sprite):
 
 class Door(Sprite):
     """Doors"""
+
     def __init__(self, game, x, y, width, height):
         Sprite.__init__(self, game)
         self.closed_door = tk.PhotoImage(file=spr + 'door1.gif')
@@ -318,12 +348,12 @@ go = Game()
 
 platform1 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
                      0, 480, 100, 10)
-platform2 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
-                     150, 440, 100, 10)
+platform2 = MovingPlatform(go, tk.PhotoImage(file=spr + plate[0]),
+                           150, 440, 100, 10)
 platform3 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
                      300, 400, 100, 10)
-platform4 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
-                     300, 160, 100, 10)
+platform4 = MovingPlatform(go, tk.PhotoImage(file=spr + plate[0]),
+                           300, 160, 100, 10)
 platform5 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
                      175, 350, 66, 10)
 platform6 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
