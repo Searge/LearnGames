@@ -272,12 +272,14 @@ class StickMan(Sprite):
                 self.x = 0
                 left = False
                 if sprite.endgame:
-                    self.game.running = False
+                    # self.game.running = False
+                    self.end(sprite)
             if right and self.x > 0 and collided_right(co, sprite_co):
                 self.x = 0
                 left = False
                 if sprite.endgame:
-                    self.game.running = False
+                    # self.game.running = False
+                    self.end(sprite)
         if falling and bottom \
                 and self.y == 0 \
                 and co.y2 < self.game.canvas_height:
