@@ -284,17 +284,32 @@ class StickMan(Sprite):
             self.y = 4
         self.game.canvas.move(self.image, self.x, self.y)
 
+    def end(self, sprite):
+        self.game.running = False
+        sprite.opendoor()
+        time.sleep(1)
+        self.game.canvas.itemconfig(self.image, state='hidden')
+        sprite.closedoor()
+
 
 class Door(Sprite):
     """Doors"""
-    def __init__(self, game, photo_image, x, y, width, height):
+    def __init__(self, game, x, y, width, height):
         Sprite.__init__(self, game)
-        self.photo_image = photo_image
+        self.closed_door = tk.PhotoImage(file=spr + 'door1.gif')
+        self.open_door = tk.PhotoImage(file=spr + 'door2.gif')
         self.image = game.canvas.create_image(x, y,
-                                              image=self.photo_image,
+                                              image=self.closed_door,
                                               anchor='nw')
         self.coordinates = Coords(x, y, x + (width / 2), y + height)
         self.endgame = True
+
+    def opendoor(self):
+        self.game.canvas.itemconfig(self.image, image=self.open_door)
+        self.game.root.update_idletasks()
+
+    def closedoor(self):
+        self.game.canvas.itemconfig(self.image, image=self.closed_door)
 
 
 go = Game()
@@ -334,7 +349,7 @@ go.sprites.append(platform10)
 # for i in range(1, 10 + 1):
 #     go.sprites.append('platform' + str(i))
 
-door = Door(go, tk.PhotoImage(file=spr + 'door1.gif'), 45, 30, 40, 35)
+door = Door(go, 45, 30, 40, 35)
 go.sprites.append(door)
 sf = StickMan(go)
 go.sprites.append(sf)
