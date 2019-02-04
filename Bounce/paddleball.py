@@ -88,9 +88,11 @@ class Paddle:
         """
         self.x = 0
         self.canvas_width = self.canvas.winfo_width()
+        self.started = False
         # Пов'язуємо (біндимо) функції з відповідними клавішами
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+        self.canvas.bind_all('<Button-1>', self.start_game)
 
     def turn_left(self, evt):
         # -2 для руху ліворуч
@@ -110,6 +112,9 @@ class Paddle:
         if pos[2] >= self.canvas_width:
             self.x = 0
 
+    def start_game(self, evt):
+        self.started = True
+
 
 paddle = Paddle(canvas, 'blue')
 # paddle перед м'ячем, щоб передати цей елемент ф-ції класу
@@ -126,10 +131,10 @@ def hello():
         i += 1
 
 
-hello()
+# hello()
 
 while 1:
-    if ball.hit_bottom is False:
+    if ball.hit_bottom is False and paddle.started is True:
         ball.draw()
         paddle.draw()
     root.update_idletasks()  # Перемальовують
