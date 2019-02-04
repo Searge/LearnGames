@@ -119,6 +119,8 @@ class Paddle:
 paddle = Paddle(canvas, 'blue')
 # paddle перед м'ячем, щоб передати цей елемент ф-ції класу
 ball = Ball(canvas, paddle, 'red')
+game_over_text = canvas.create_text(250, 200,
+                                    text='КІНЕЦЬ ГРИ', state='hidden')
 
 
 def hello():
@@ -137,6 +139,9 @@ while 1:
     if ball.hit_bottom is False and paddle.started is True:
         ball.draw()
         paddle.draw()
+    if ball.hit_bottom:
+        time.sleep(1)
+        canvas.itemconfig(game_over_text, state='normal')
     root.update_idletasks()  # Перемальовують
     root.update()  # полотно
     time.sleep(0.01)
