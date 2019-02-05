@@ -74,6 +74,7 @@ class Ball:
         paddle_pos = self.canvas.coords(self.paddle.id)
         if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
             if paddle_pos[3] <= pos[3] >= paddle_pos[1]:
+                self.x += self.paddle.x
                 return True
         return False
 
