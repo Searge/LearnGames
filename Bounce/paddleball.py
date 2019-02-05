@@ -27,9 +27,10 @@ root.update()
 
 
 class Ball:
-    def __init__(self, canvas, paddle, color):
+    def __init__(self, canvas, paddle, score, color):
         self.canvas = canvas
         self.paddle = paddle
+        self.score = score
         self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
         self.canvas.move(self.id, 245, 100)
         """ Змінюємо початковий напрямок руху (кут)
@@ -75,6 +76,7 @@ class Ball:
         if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
             if paddle_pos[3] <= pos[3] >= paddle_pos[1]:
                 self.x += self.paddle.x
+                self.score.hit()
                 return True
         return False
 
@@ -117,24 +119,42 @@ class Paddle:
         self.started = True
 
 
+class Score:
+    """docstring for Score"""
+
+    def __init__(self, canvas, color):
+        super(Score, self).__init__()
+        self.score = 0
+        self.canvas = canvas
+        self.id = canvas.create_text(450, 10,
+                                     text=self.score,
+                                     fill=color)
+
+    def hit(self):
+        self.score += 1
+        self.canvas.itemconfig(self.id, text=self.score)
+
+#    ______                        ____             _
+#   / ____/___ _____ ___  ___     ( __ )___  ____ _(_)___
+#  / / __/ __ `/ __ `__ \/ _ \   / __  / _ \/ __ `/ / __ \
+# / /_/ / /_/ / / / / / /  __/  / /_/ /  __/ /_/ / / / / /
+# \____/\__,_/_/ /_/ /_/\___/  /_____/\___/\__, /_/_/ /_/
+#                                         /____/
+
+
+score = Score(canvas, 'red')
 paddle = Paddle(canvas, 'blue')
 # paddle перед м'ячем, щоб передати цей елемент ф-ції класу
-ball = Ball(canvas, paddle, 'red')
+ball = Ball(canvas, paddle, score, 'red')
 game_over_text = canvas.create_text(250, 200,
-                                    text='КІНЕЦЬ ГРИ', state='hidden')
+                                    text='КІНЕЦЬ ГРИ',
+                                    state='hidden')
 
+start_the_game = canvas.create_text(250, 200,
+                                    text="START!",
+                                    font=('Helvetica Bold', 21),
+                                    state='hidden')
 
-def hello():
-    i = 0
-    while i <= 2:
-        canvas.create_text(250, 200, text="START!",
-                           font=('Helvetica Bold', 21))
-        root.update_idletasks()
-        root.update()
-        i += 1
-
-
-# hello()
 
 while 1:
     if ball.hit_bottom is False and paddle.started is True:
@@ -147,9 +167,5 @@ while 1:
     root.update()  # полотно
     time.sleep(0.01)
 
-# TODO 9.1 Відтермінувати початок гри
-#     Додати прив'язку до події клацання мишкою
-# TODO 9.2 Додати напис «Кінець гри»
-# TODO 9.3 Зробити м'яч швидшим
-#     Передавати прискорення від ракетки
+
 # TODO 9.4 Записати рахунок гравця
