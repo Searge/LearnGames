@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit
+# lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
 from typing import Dict
 
 ENDCOLOR: str = '\033[0m'
@@ -19,7 +20,7 @@ BRIGHT_COLORS: Dict[str, str] = {
 def ascii_colors(colors: Dict[str, str]) -> None:
     for color, code in colors.items():
         # adding ten for background color
-        bg = f'{code[:2]}{int(code[-3:-1]) + 10}{code[-1]}'
+        bg: str = f'{code[:2]}{int(code[-3:-1]) + 10}{code[-1]}'
         print(f'{bg}{color} {ENDCOLOR} — {code}{color}{ENDCOLOR}')
 
 
