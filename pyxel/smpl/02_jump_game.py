@@ -1,5 +1,4 @@
 from random import randint
-
 import pyxel
 
 
@@ -18,7 +17,7 @@ class App:
         self.far_cloud = [(-10, 75), (40, 65), (90, 60)]
         self.near_cloud = [(10, 25), (70, 35), (120, 15)]
         self.floor = [(i * 60, randint(8, 104), True) for i in range(4)]
-        self.fruit = [(i * 60, randint(0, 104), randint(0, 2), True) 
+        self.fruit = [(i * 60, randint(0, 104), randint(0, 2), True)
                 for i in range(4)]
 
         pyxel.playm(0, loop=True)
