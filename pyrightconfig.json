@@ -1,0 +1,6 @@
+{
+  "pythonVersion": "3.8",
+  "venvPath": "$HOME/anaconda3/envs/",
+  "venv": "Games",
+  "extraPaths": ["$HOME/anaconda3/envs/Games/lib/python3.8/site-packages"]
+}
