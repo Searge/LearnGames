@@ -1,9 +1,11 @@
+from PIL import Image, ImageTk
 import tkinter as tk
 import time
-# import random
+import os
 
 size: int = 500
-spr = "sprites/"
+base_folder: str = os.path.dirname(__file__)
+spr: str = base_folder + "/sprites/"
 plate = ("platform0.gif", "platform1.gif", "platform2.gif")
 
 
@@ -19,8 +21,8 @@ class Game:
         self.root.update()
         self.canvas_width = size
         self.canvas_height = size
-        self.bg = tk.PhotoImage(file="sprites/background.gif")
-        self.bg2 = tk.PhotoImage(file="sprites/background2.gif")
+        self.bg = ImageTk.PhotoImage(Image.open(spr + "background.gif"))
+        self.bg2 = ImageTk.PhotoImage(Image.open(spr + "background2.gif"))
         w = self.bg.width()
         h = self.bg.height()
         draw = True
@@ -178,14 +180,14 @@ class StickMan(Sprite):
     def __init__(self, game):
         Sprite.__init__(self, game)
         self.images_left = [
-            tk.PhotoImage(file=spr + 'stickman-L1.gif'),
-            tk.PhotoImage(file=spr + 'stickman-L2.gif'),
-            tk.PhotoImage(file=spr + 'stickman-L3.gif')
+            ImageTk.PhotoImage(Image.open(spr + 'stickman-L1.gif')),
+            ImageTk.PhotoImage(Image.open(spr + 'stickman-L2.gif')),
+            ImageTk.PhotoImage(Image.open(spr + 'stickman-L3.gif'))
         ]
         self.images_right = [
-            tk.PhotoImage(file=spr + 'stickman-R1.gif'),
-            tk.PhotoImage(file=spr + 'stickman-R2.gif'),
-            tk.PhotoImage(file=spr + 'stickman-R3.gif')
+            ImageTk.PhotoImage(Image.open(spr + 'stickman-R1.gif')),
+            ImageTk.PhotoImage(Image.open(spr + 'stickman-R2.gif')),
+            ImageTk.PhotoImage(Image.open(spr + 'stickman-R3.gif'))
         ]
         self.image = game.canvas.create_image(200, 470,
                                               image=self.images_left[0],
@@ -328,8 +330,8 @@ class Door(Sprite):
 
     def __init__(self, game, x, y, width, height):
         Sprite.__init__(self, game)
-        self.closed_door = tk.PhotoImage(file=spr + 'door1.gif')
-        self.open_door = tk.PhotoImage(file=spr + 'door2.gif')
+        self.closed_door = ImageTk.PhotoImage(Image.open(spr + 'door1.gif'))
+        self.open_door = ImageTk.PhotoImage(Image.open(spr + 'door2.gif'))
         self.image = game.canvas.create_image(x, y,
                                               image=self.closed_door,
                                               anchor='nw')
@@ -346,26 +348,26 @@ class Door(Sprite):
 
 go = Game()
 
-platform1 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
-                     0, 480, 100, 10)
-platform2 = MovingPlatform(go, tk.PhotoImage(file=spr + plate[0]),
-                           150, 440, 100, 10)
-platform3 = Platform(go, tk.PhotoImage(file=spr + plate[0]),
-                     300, 400, 100, 10)
-platform4 = MovingPlatform(go, tk.PhotoImage(file=spr + plate[0]),
-                           300, 160, 100, 10)
-platform5 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
-                     175, 350, 66, 10)
-platform6 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
-                     50, 300, 66, 10)
-platform7 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
-                     170, 120, 66, 10)
-platform8 = Platform(go, tk.PhotoImage(file=spr + plate[1]),
-                     45, 60, 66, 10)
-platform9 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
-                     170, 250, 32, 10)
-platform10 = Platform(go, tk.PhotoImage(file=spr + plate[2]),
-                      230, 200, 32, 10)
+platform1 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[0])), 0, 480, 100, 10)
+platform2 = MovingPlatform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[0])), 150, 440, 100, 10)
+platform3 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[0])), 300, 400, 100, 10)
+platform4 = MovingPlatform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[0])), 300, 160, 100, 10)
+platform5 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[1])), 175, 350, 66, 10)
+platform6 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[1])), 50, 300, 66, 10)
+platform7 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[1])), 170, 120, 66, 10)
+platform8 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[1])), 45, 60, 66, 10)
+platform9 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[2])), 170, 250, 32, 10)
+platform10 = Platform(
+    go, ImageTk.PhotoImage(Image.open(spr + plate[2])),  230, 200, 32, 10)
 
 go.sprites.append(platform1)
 go.sprites.append(platform2)
