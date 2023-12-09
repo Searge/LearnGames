@@ -48,7 +48,7 @@ pycodestyle==2.5.0
 pydocstyle==5.0.2
 pyflakes==2.2.0
 Pygments==2.15.0
-PyInstaller==3.6
+PyInstaller==5.13.1
 pylint==2.4.4
 pynvim==0.4.1
 PyQt5==5.12.3
