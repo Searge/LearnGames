@@ -79,4 +79,4 @@ webencodings==0.5.1
 widgetsnbextension==3.5.1
 wrapt==1.11.2
 yapf==0.29.0
-zipp==3.1.0
+zipp==3.19.1
